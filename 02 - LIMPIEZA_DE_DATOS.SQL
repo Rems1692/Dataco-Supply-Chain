@@ -131,14 +131,14 @@ MIN(REPLACE(ORDER_ITEM_PROFIT_RATIO, '%','')::NUMERIC) AS MINIMO,
 MAX(REPLACE(ORDER_ITEM_PROFIT_RATIO, '%','')::NUMERIC) AS MAXIMO
 FROM DATACO_RAW;
 
---¿CUANTAS FILAS TIENEN ESE VALOR DE -275?
+10 - --¿CUANTAS FILAS TIENEN ESE VALOR DE -275?
 SELECT COUNT(*)
 FROM DATACO_RAW
 WHERE REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','')::NUMERIC = -275.00;
 
 
 
---¿CUALES SON ESAS FILAS?
+11 - --¿CUALES SON ESAS FILAS?
 SELECT
 ORDER_ID,
 PRODUCT_NAME,
@@ -151,7 +151,7 @@ FROM DATACO_RAW
 WHERE REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','')::NUMERIC = -275.00
 LIMIT 10;
 
---¿cuántas hay en cada ORDER_STATUS?
+12 - --¿cuántas hay en cada ORDER_STATUS?
 SELECT ORDER_STATUS,
 COUNT(*) AS CANTIDAD
 FROM DATACO_RAW
@@ -159,7 +159,7 @@ WHERE REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','')::NUMERIC = -275.00
 GROUP BY ORDER_STATUS
 ORDER BY CANTIDAD DESC;
 
---¿cuántas hay de cada PRODUCT_NAME?
+13 - --¿cuántas hay de cada PRODUCT_NAME?
 
 SELECT PRODUCT_NAME,
 COUNT(*) AS CANTIDAD
@@ -169,7 +169,7 @@ GROUP BY PRODUCT_NAME
 ORDER BY CANTIDAD DESC;
 
 
---¿cuántas hay de cada MARKET?
+14 - --¿cuántas hay de cada MARKET?
 
 SELECT MARKET,
 COUNT(*) AS CANTIDAD
@@ -179,7 +179,7 @@ GROUP BY MARKET
 ORDER BY CANTIDAD DESC;
 
 
---¿cuántas hay de cada SHIPPING_MODE?
+15 - --¿cuántas hay de cada SHIPPING_MODE?
 
 SELECT SHIPPING_MODE,
 COUNT(*) AS CANTIDAD
@@ -196,7 +196,7 @@ GROUP BY ORDER_ITEM_DISCOUNT_RATE
 ORDER BY CANTIDAD DESC;
 
 
---¿cuál es el ratio de ganancia mínimo, máximo y promedio 
+16 - --¿cuál es el ratio de ganancia mínimo, máximo y promedio 
 y cuántas filas tiene O’Brien Men’s Neoprene Life Vest?”
 
 SELECT
@@ -215,7 +215,7 @@ ROUND(AVG(REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','')::NUMERIC),2) AS PROMEDIO
 FROM DATACO_RAW
 WHERE TRIM(PRODUCT_NAME) = 'Nike Men''s Dri-FIT Victory Golf Polo';
 
---¿cuántas filas de ORDER_ITEM_DISCOUNT_RATE no se pueden convertir a número?
+17 -  --¿cuántas filas de ORDER_ITEM_DISCOUNT_RATE no se pueden convertir a número?
 SELECT COUNT(*)
 FROM DATACO_RAW
 WHERE REPLACE(ORDER_ITEM_DISCOUNT_RATE,'%','') !~ '^-?[0-9]+(\.[0-9]+)?$';
@@ -225,7 +225,7 @@ FROM DATACO_RAW
 WHERE REPLACE(ORDER_ITEM_DISCOUNT_RATE,'%','') ~ '^-?[0-9]+(\.[0-9]+)?$';
 
 
---¿cuántas filas de ORDER_ITEM_PROFIT_RATIO no se pueden convertir a número?
+18 - --¿cuántas filas de ORDER_ITEM_PROFIT_RATIO no se pueden convertir a número?
 SELECT COUNT(*)
 FROM DATACO_RAW
 WHERE REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','') !~'^-?[0-9]+(\.[0-9]+)?$';
@@ -236,7 +236,7 @@ WHERE REPLACE(ORDER_ITEM_PROFIT_RATIO,'%','') ~'^-?[0-9]+(\.[0-9]+)?$';
 
 
 
---¿qué valores distintos tiene el descuento y cuántas filas hay de cada uno?
+19 - --¿qué valores distintos tiene el descuento y cuántas filas hay de cada uno?
 SELECT ORDER_ITEM_DISCOUNT_RATE,
 COUNT(*) AS CANTIDAD
 FROM DATACO_RAW
@@ -250,10 +250,39 @@ GROUP BY ORDER_ITEM_PROFIT_RATIO
 ORDER BY CANTIDAD DESC;
 
 
-10 - ¿Hay valores que no se puedan convertir a número después de quitar el %?
+20 - ¿CUANTAS FILAS TIENEN ORDER_ITEM_QUANTITY MENOR O IGUAL A 0? 
+SELECT COUNT (*)
+FROM DATACO_RAW
+WHERE ORDER_ITEM_QUANTITY::INT <= 0;
 
 
+21 - -- ¿qué valores tiene ORDER_ITEM_QUANTITY y cuántas filas hay de cada uno?
 
+SELECT ORDER_ITEM_QUANTITY,
+COUNT(*) AS CANTIDAD
+FROM DATACO_RAW
+GROUP BY
+ORDER_ITEM_QUANTITY
+ORDER BY
+ORDER_ITEM_QUANTITY
 
+22 - -- ¿qué valores tiene DAYS_FOR_SHIPMENT_SCHEDULED y cuántas filas hay de cada uno?
 
-11 - ¿Cuántos valores distintos tiene el descuento y cuántas filas hay de cada uno?
+SELECT DAYS_FOR_SHIPMENT_SCHEDULED,
+COUNT(*) AS CANTIDAD
+FROM DATACO_RAW
+GROUP BY
+DAYS_FOR_SHIPMENT_SCHEDULED
+ORDER BY
+DAYS_FOR_SHIPMENT_SCHEDULED
+
+23 - -- ¿qué valores tiene DAYS_FOR_SHIPPING_REAL y cuántas filas hay de cada uno?
+
+SELECT DAYS_FOR_SHIPPING_REAL,
+COUNT(*) AS CANTIDAD
+FROM DATACO_RAW
+GROUP BY
+DAYS_FOR_SHIPPING_REAL
+ORDER BY
+DAYS_FOR_SHIPPING_REAL
+
